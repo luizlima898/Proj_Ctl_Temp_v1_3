@@ -3,12 +3,12 @@
 #include <DHT.h>
 
 // --- CONFIGURAÇÕES ---
-const char* ssid = "Luiz Fernando 2.4Ghz";
-const char* password = "971942255";
+const char* ssid = "********";
+const char* password = "*********";
 
 // Substitua pelo IP do seu PC (ex: 192.168.1.15) se estiver local
 // Ou pela URL do Render (ex: https://onrender.com)
-const char* serverName = "http://192.168.15.181:3000/sensor";
+const char* serverName = "http://192.168.**.***:3000/sensor";
 #define DHTPIN 4
 
 #define DHTTYPE DHT22
@@ -27,7 +27,7 @@ void setup() {
   }
   
   Serial.println("\nConectado!");
-  Serial.print("IP do ESP32:192.168.1.15.138");
+  Serial.print("IP do ESP32:192.168.*.**.***");
   Serial.println(WiFi.localIP());
 }
 
