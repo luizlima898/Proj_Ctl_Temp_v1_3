@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Controle de Clima</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f2f5; margin: 0; }
+        .login-container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 300px; }
+        h2 { text-align: center; margin-bottom: 24px; color: #333; }
+        .input-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; color: #666; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .error-msg { color: red; font-size: 14px; text-align: center; margin-top: 12px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Acesso ao Sistema</h2>
+    <form id="loginForm">
+        <div class="input-group">
+            <label for="usuario">Usuário</label>
+            <input type="text" id="usuario" required>
+        </div>
+        <div class="input-group">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" required>
+        </div>
+        <button type="submit">Entrar</button>
+        <div id="errorMsg" class="error-msg"></div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const usuario = document.getElementById('usuario').value;
+        const senha = document.getElementById('senha').value;
+        const errorMsg = document.getElementById('errorMsg');
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario, senha })
+            });
+
+            const dados = await response.json();
+
+            if (response.ok && dados.sucesso) {
+                window.location.href = '/'; // Redireciona para o painel principal protegido
+            } else {
+                errorMsg.textContent = dados.erro || 'Erro ao fazer login';
+                errorMsg.style.display = 'block';
+            }
+        } catch (err) {
+            errorMsg.textContent = 'Erro de conexão com o servidor.';
+            errorMsg.style.display = 'block';
+        }
+    });
+</script>
+</body>
+</html>

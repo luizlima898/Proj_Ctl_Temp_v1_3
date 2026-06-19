@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.2.2",
+    "canvas": "^3.2.3",
+    "chartjs-node-canvas": "^5.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "path": "^0.12.7",
+    "pg": "^8.20.0",
+    "socket.io": "^4.8.3",
+    "sqlite3": "^6.0.1"
+  },
+  "name": "proj_ctl_temp_v1_1",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luizlima898/Proj_Ctl_Temp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luizlima898/Proj_Ctl_Temp/issues"
+  },
+  "homepage": "https://github.com/luizlima898/Proj_Ctl_Temp#readme",
+  "description": ""
+}

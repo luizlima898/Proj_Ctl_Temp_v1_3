@@ -1,0 +1,19 @@
+# Dependências (nunca envie esta pasta!)
+node_modules/
+
+# Logs de erro e execução
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Variáveis de ambiente (contém senhas e chaves de API)
+.env
+.env.local
+
+# Pastas de build/dist (se você usa TypeScript ou frameworks como React/Next)
+dist/
+build/
+
+# Pasta do sistema operacional
+.DS_Store
+Thumbs.db

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações de Segurança</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f8f9fa; margin: 0; }
+        .config-container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 320px; }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        .input-group { margin-bottom: 14px; }
+        label { display: block; margin-bottom: 6px; color: #555; font-size: 14px; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-salvar { width: 100%; padding: 11px; background-color: #28a745; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+        .btn-salvar:hover { background-color: #218838; }
+        .btn-voltar { width: 100%; padding: 8px; background-color: #e2e3e5; color: #383d41; border: none; border-radius: 4px; font-size: 14px; cursor: pointer; margin-top: 12px; }
+        .btn-voltar:hover { background-color: #d6d8db; }
+        .status-msg { text-align: center; margin-top: 15px; font-size: 14px; font-weight: bold; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="config-container">
+    <h2>Alterar Acesso</h2>
+    <form id="alterarForm">
+        <div class="input-group">
+            <label for="novoUsuario">Novo Nome de Usuário</label>
+            <input type="text" id="novoUsuario" required>
+        </div>
+        <div class="input-group">
+            <label for="novaSenha">Nova Senha</label>
+            <input type="password" id="novaSenha" required>
+        </div>
+        <button type="submit" class="btn-salvar">Salvar Alterações</button>
+        <button type="button" class="btn-voltar" onclick="window.location.href='/'">← Voltar ao Painel</button>
+        <div id="statusMsg" class="status-msg"></div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('alterarForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const novoUsuario = document.getElementById('novoUsuario').value;
+        const novaSenha = document.getElementById('novaSenha').value;
+        const statusMsg = document.getElementById('statusMsg');
+
+        try {
+            const response = await fetch('/api/alterar-credenciais', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ novoUsuario, novaSenha })
+            });
+
+            const dados = await response.json();
+
+            if (response.ok && dados.sucesso) {
+                statusMsg.style.color = 'green';
+                statusMsg.textContent = dados.mensagem;
+                statusMsg.style.display = 'block';
+                
+                // Redireciona para o login após a troca bem-sucedida
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 2000);
+            } else {
+                statusMsg.style.color = 'red';
+                statusMsg.textContent = dados.erro || 'Erro ao alterar dados.';
+                statusMsg.style.display = 'block';
+            }
+        } catch (err) {
+            statusMsg.style.color = 'red';
+            statusMsg.textContent = 'Erro de comunicação com o servidor.';
+            statusMsg.style.display = 'block';
+        }
+    });
+</script>
+</body>
+</html>
