@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const app = express();
 const PORT = 3000;
-const JWT_SECRET = 'Norma$$$898'; // Altere para produção
+const JWT_SECRET = '******'; // Altere para produção
 // Configura middlewares para ler JSON e servir a pasta atual (onde está o index.html)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,7 +38,7 @@ async function inicializarBanco() {
         usuario_db.get(`SELECT COUNT(*) as total FROM usuarios`, async (err, row) => {
             if (!err && row.total === 0) {
                 // Se não houver usuários, cria o "admin" com a senha "admin123"
-                const senhaPadrao = 'admin123';
+                const senhaPadrao = '******';
                 const salt = await bcrypt.genSalt(10);
                 const hash = await bcrypt.hash(senhaPadrao, salt);
 
